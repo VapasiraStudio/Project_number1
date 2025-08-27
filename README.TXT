@@ -21,7 +21,6 @@ cd Project_number1
 
 docker-compose up -d
 
-
 3. Откройте в браузере:
    - Frontend: http://localhost:80
    - Auth Service API: http://localhost:8000/docs
