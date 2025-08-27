@@ -9,7 +9,7 @@ class List(Base):
 
 class Link(Base):
     __tablename__ = 'links'
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, index=True)
     url = Column(String, index=True)
     title = Column(String, index=True)
     description = Column(String)
