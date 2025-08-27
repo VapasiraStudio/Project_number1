@@ -17,7 +17,6 @@ My Link Saver - это веб-приложение для сохранения �
 git clone https://github.com/VapasiraStudio/Project_number1.git
 cd Project_number1
 
-
 2. Запустите все сервисы:
 
 docker-compose up -d
@@ -54,7 +53,6 @@ my-link-saver-project/
 │   └── nginx.conf
 ├── docker-compose.yml     # Конфигурация Docker
 └── README.txt            # Этот файл
-
 
 👥 Участники проекта
 
