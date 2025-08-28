@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой список ссылок</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Мой список ссылок</h1>
+            <div class="user-info">
+                <span id="username"></span>
+                <button onclick="logout()">Выйти</button>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <h3>Мои списки</h3>
+                <div id="lists-container">
+                    <button class="list-item active" onclick="changeFilter('all')">Все ссылки</button>
+                </div>
+                <button onclick="showAddListForm()">+ Новый список</button>
+            </div>
+
+            <div class="content">
+                <div class="actions">
+                    <input type="text" id="search-input" placeholder="Поиск по названию..." oninput="loadLinks()">
+                    <button onclick="showAddLinkForm()">+ Добавить ссылку</button>
+                </div>
+
+                <div id="links-container" class="links-grid">
+                    <!-- Links will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal window for adding a link -->
+    <div id="add-link-modal" class="modal">
+        <div class="modal-content">
+            <h2>Добавить новую ссылку</h2>
+            <form onsubmit="addNewLink(event)">
+                <input type="url" id="link-url" placeholder="URL" required>
+                <input type="text" id="link-title" placeholder="Название" required>
+                <textarea id="link-description" placeholder="Описание"></textarea>
+                <select id="link-list">
+                    <option value="">Без списка</option>
+                </select>
+                <div class="modal-buttons">
+                    <button type="button" onclick="closeModal('add-link-modal')">Отмена</button>
+                    <button type="submit">Сохранить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal window for adding a list -->
+    <div id="add-list-modal" class="modal">
+        <div class="modal-content">
+            <h2>Создать новый список</h2>
+            <form onsubmit="addNewList(event)">
+                <input type="text" id="list-name" placeholder="Название списка" required>
+                <div class="modal-buttons">
+                    <button type="button" onclick="closeModal('add-list-modal')">Отмена</button>
+                    <button type="submit">Создать</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
