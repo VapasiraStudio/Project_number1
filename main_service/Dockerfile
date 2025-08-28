@@ -27,7 +27,7 @@ FROM python:3.11-slim AS runtime
 
 # Install system dependencies required for runtime
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends libpq5 && \
+    apt-get install -y --no-install-recommends libpq5 gcc && \
     rm -rf /var/lib/apt/lists/*
 
 # Copying the virtual environment from the builder stage
@@ -52,5 +52,4 @@ COPY --chown=appuser:appuser ./src/ ./src/
 EXPOSE 8000
 
 # Command to run the application
-# Using uvicorn for production
-CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["python", "-m", "uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
