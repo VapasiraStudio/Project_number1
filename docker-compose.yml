@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  # Database for the authorization service
+  postgres-auth:
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_DB: auth_db
+      POSTGRES_USER: Admin
+      POSTGRES_PASSWORD: Admin
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-auth-data:/var/lib/postgresql/data
+
+  # Database for the main service
+  postgres-main:
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_DB: main_db
+      POSTGRES_USER: Admin
+      POSTGRES_PASSWORD: Admin
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres-main-data:/var/lib/postgresql/data
+
+  # Authorization service
+  auth-service:
+    build: ./auth_service
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://Admin:Admin@postgres_auth:5432/auth_db
+      SECRET_KEY: mysecretkey
+    depends_on:
+      - postgres-auth
+    restart: unless-stopped
+
+  # Main service
+  main-service:
+    build: ./main_service
+    ports:
+      - "8001:8000"
+    environment:
+      DATABASE_URL: postgresql://Admin:Admin@postgres_auth:5432/main_db
+      AUTH_SERVICE_URL: http://auth-service:8000
+    depends_on:
+      - postgres-main
+      - auth-service
+    restart: unless-stopped
+
+volumes:
+  postgres-auth-data:
+  postgres-main-data:
